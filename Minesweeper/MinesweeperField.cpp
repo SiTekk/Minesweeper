@@ -16,27 +16,27 @@ namespace minesweeper
 
     void MinesweeperField::setSurroundingBombs(vector<vector<MinesweeperField>>& bombField)
     {
-        for (int i = 0; i < bombField.size(); i++)
+        for (size_t i = 0; i < bombField.size(); i++)
         {
-            for (int k = 0; k < bombField[i].size(); k++)
+            for (size_t k = 0; k < bombField[i].size(); k++)
             {
                 try
                 {
-                    if (i - 1 >= 0)
+                    if (i > 0)
                     {
-                        if (k - 1 >= 0)
+                        if (k > 0)
                             bombField.at(i).at(k).surroundingBombs += bombField.at(i - 1).at(k - 1).isBomb ? 1 : 0;
                         bombField.at(i).at(k).surroundingBombs += bombField.at(i - 1).at(k).isBomb ? 1 : 0;
                         if (k + 1 < bombField[i].size())
                             bombField.at(i).at(k).surroundingBombs += bombField.at(i - 1).at(k + 1).isBomb ? 1 : 0;
                     }
-                    if (k - 1 >= 0)
+                    if (k > 0)
                         bombField.at(i).at(k).surroundingBombs += bombField.at(i).at(k - 1).isBomb ? 1 : 0;
                     if (k + 1 < bombField[i].size())
                         bombField.at(i).at(k).surroundingBombs += bombField.at(i).at(k + 1).isBomb ? 1 : 0;
                     if (i + 1 < bombField.size())
                     {
-                        if ((k - 1) >= 0)
+                        if (k  > 0)
                             bombField.at(i).at(k).surroundingBombs += bombField.at(i + 1).at(k - 1).isBomb ? 1 : 0;
                         bombField.at(i).at(k).surroundingBombs += bombField.at(i + 1).at(k).isBomb ? 1 : 0;
                         if (k + 1 < bombField[i].size())
@@ -53,10 +53,10 @@ namespace minesweeper
 
     void MinesweeperField::initializeBombField(vector<vector<MinesweeperField>>& bombField, Texture& texture, Vector2u count, Vector2u size, int bombCount)
     {
-        for (int i = 0; i < count.y; i++)
+        for (size_t i = 0; i < count.y; i++)
         {
             bombField.push_back(vector<MinesweeperField>());
-            for (int k = 0; k < count.x; k++)
+            for (size_t k = 0; k < count.x; k++)
             {
                 bombField.at(i).push_back(MinesweeperField(false));
                 bombField[i][k].s.setTexture(texture);
@@ -64,19 +64,19 @@ namespace minesweeper
             }
         }
 
-        int minesPerField = count.x * count.y / bombCount * 10;
-        int x = 0, y = 0;
-        int xRev = bombField[0].size() - 1, yRev = bombField.size() - 1;
+        const int minesPerField = count.x * count.y / bombCount * 10;
+        unsigned int x = 0, y = 0;
+        unsigned int xRev = bombField[0].size() - 1, yRev = bombField.size() - 1;
 
         srand((unsigned)time(0));
         while (bombCount > 0)
         {
-            if ((((int)rand() % minesPerField) + 1) == minesPerField && !bombField[y][x].isBomb)
+            if ((((unsigned int)rand() % minesPerField) + 1) == minesPerField && !bombField[y][x].isBomb)
             {
                 bombField[y][x].isBomb = true;
                 bombCount--;
             }
-            if ((((int)rand() % minesPerField) + 1) == minesPerField && !bombField[yRev][xRev].isBomb)
+            if ((((unsigned int)rand() % minesPerField) + 1) == minesPerField && !bombField[yRev][xRev].isBomb)
             {
                 bombField[yRev][xRev].isBomb = true;
                 bombCount--;
