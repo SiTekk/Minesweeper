@@ -31,9 +31,11 @@ namespace minesweeper
         clock.restart();
         Font font;
         font.loadFromFile("font\\NotoSansMono-Bold.ttf");
-        Text textFps = Text("", font);
+        Text textFps = Text("0", font);
         textFps.setFillColor(Color::Yellow);
-        textFps.setPosition(2400, 1350);
+        sf::VideoMode screenSize = sf::VideoMode::getDesktopMode();
+        Vector2i textFpsSize = Vector2i(textFps.getLocalBounds().width, textFps.getLocalBounds().height);
+        textFps.setPosition(screenSize.width - textFpsSize.x * 4 - 5, screenSize.height - textFpsSize.y - 20);
         Int64 lastTime = 0;
 
         while (window.isOpen())
