@@ -6,6 +6,9 @@
 
 namespace minesweeper
 {
+    /// <summary>
+    /// Provides the attributes of a single minesweeper field and provides additional functionalities through static methods.
+    /// </summary>
     class MinesweeperField
     {
     public:
