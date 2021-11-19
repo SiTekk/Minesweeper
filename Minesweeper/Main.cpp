@@ -14,11 +14,20 @@ namespace minesweeper
     FieldView fieldView;
     IView* currentView;
 
+    /// <summary>
+    /// Handles the Events that are thrown by SFML.
+    /// </summary>
     void HandleEvents();
+    /// <summary>
+    /// Changes the currentView pointer to the new view that should be displayed.
+    /// </summary>
+    /// <param name="id">The ViewId of the view that should be displayed.</param>
+    /// <returns>Returns true if the Program should exit.</returns>
     bool ChangeView(ViewId id);
 
     int main()
     {
+        //Create the window and activate VSync
         window.create(VideoMode(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height), "Minesweeper Collection", Style::Fullscreen);
         window.setVerticalSyncEnabled(true);
 
@@ -26,6 +35,7 @@ namespace minesweeper
 
         Vector2i oldMousePos;
 
+        //Functionalities for the FPS counter
         Clock clock;
         Time dt;
         clock.restart();
@@ -38,12 +48,14 @@ namespace minesweeper
         textFps.setPosition(screenSize.width - textFpsSize.x * 4 - 5, screenSize.height - textFpsSize.y - 20);
         Int64 lastTime = 0;
 
+        //Game Loop
         while (window.isOpen())
         {
             HandleEvents();
 
             if (Mouse::isButtonPressed(Mouse::Middle))
             {
+                //Move the field when the middle button is pressed
                 Vector2i currentMousePosition = Mouse::getPosition();
                 if (fieldView.mouseCounter)
                 {
