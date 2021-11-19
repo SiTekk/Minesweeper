@@ -16,9 +16,9 @@ namespace minesweeper
 
     void MinesweeperField::setSurroundingBombs(vector<vector<MinesweeperField>>& bombField)
     {
-        for (size_t i = 0; i < bombField.size(); i++)
+        for (uint64_t i = 0; i < bombField.size(); i++)
         {
-            for (size_t k = 0; k < bombField[i].size(); k++)
+            for (uint64_t k = 0; k < bombField[i].size(); k++)
             {
                 try
                 {
@@ -51,12 +51,12 @@ namespace minesweeper
         }
     }
 
-    void MinesweeperField::initializeBombField(vector<vector<MinesweeperField>>& bombField, Texture& texture, Vector2u count, Vector2u size, int bombCount)
+    void MinesweeperField::initializeBombField(vector<vector<MinesweeperField>>& bombField, Texture& texture, const Vector2u fieldSize, const Vector2u size, int bombCount)
     {
-        for (size_t i = 0; i < count.y; i++)
+        for (uint64_t i = 0; i < fieldSize.y; i++)
         {
             bombField.push_back(vector<MinesweeperField>());
-            for (size_t k = 0; k < count.x; k++)
+            for (uint64_t k = 0; k < fieldSize.x; k++)
             {
                 bombField.at(i).push_back(MinesweeperField(false));
                 bombField[i][k].s.setTexture(texture);
@@ -64,7 +64,7 @@ namespace minesweeper
             }
         }
 
-        const int minesPerField = count.x * count.y / bombCount * 10;
+        const int minesPerField = fieldSize.x * fieldSize.y / bombCount * 10;
         unsigned int x = 0, y = 0;
         unsigned int xRev = bombField[0].size() - 1, yRev = bombField.size() - 1;
 
@@ -100,24 +100,24 @@ namespace minesweeper
         }
     }
 
-    int MinesweeperField::countSurroundingFlags(vector<vector<MinesweeperField>> bombField, int y, int x)
+    int MinesweeperField::countSurroundingFlags(const vector<vector<MinesweeperField>>& bombField, const uint64_t y, const uint64_t x)
     {
         int surroundingFlags = 0;
-        if (y - 1 >= 0)
+        if (y > 0)
         {
-            if (x - 1 >= 0)
+            if (x > 0)
                 surroundingFlags += bombField.at(y - 1).at(x - 1).isFlag ? 1 : 0;
             surroundingFlags += bombField.at(y - 1).at(x).isFlag ? 1 : 0;
             if (x + 1 < bombField[y].size())
                 surroundingFlags += bombField.at(y - 1).at(x + 1).isFlag ? 1 : 0;
         }
-        if (x - 1 >= 0)
+        if (x > 0)
             surroundingFlags += bombField.at(y).at(x - 1).isFlag ? 1 : 0;
         if (x + 1 < bombField[y].size())
             surroundingFlags += bombField.at(y).at(x + 1).isFlag ? 1 : 0;
         if (y + 1 < bombField.size())
         {
-            if ((x - 1) >= 0)
+            if (x > 0)
                 surroundingFlags += bombField.at(y + 1).at(x - 1).isFlag ? 1 : 0;
             surroundingFlags += bombField.at(y + 1).at(x).isFlag ? 1 : 0;
             if (x + 1 < bombField[y].size())
@@ -127,12 +127,12 @@ namespace minesweeper
         return surroundingFlags;
     }
 
-    int MinesweeperField::countSurroundingClickedFields(vector<vector<MinesweeperField>> bombField, int y, int x)
+    int MinesweeperField::countSurroundingClickedFields(const vector<vector<MinesweeperField>>& bombField, const uint64_t y, const uint64_t x)
     {
         int clickedFields = 0;
-        if (y - 1 >= 0)
+        if (y > 0)
         {
-            if (x - 1 >= 0)
+            if (x > 0)
                 clickedFields += bombField.at(y - 1).at(x - 1).clicked ? 1 : 0;
             else
                 clickedFields++;
@@ -144,7 +144,7 @@ namespace minesweeper
         }
         else
             clickedFields += 3;
-        if (x - 1 >= 0)
+        if (x > 0)
             clickedFields += bombField.at(y).at(x - 1).clicked ? 1 : 0;
         else
             clickedFields++;
@@ -154,7 +154,7 @@ namespace minesweeper
             clickedFields++;
         if (y + 1 < bombField.size())
         {
-            if ((x - 1) >= 0)
+            if (x > 0)
                 clickedFields += bombField.at(y + 1).at(x - 1).clicked ? 1 : 0;
             else
                 clickedFields++;
