@@ -21,7 +21,7 @@ namespace minesweeper
         buttonQuit = Button(Text("Quit", font), buttonQuitPressed);
         buttonVector.push_back(&buttonQuit);
 
-        textBoxBombCount = TextBox(Text("260", font));
+        textBoxBombCount = TextBox(Text("50", font));
         textBoxVector.push_back(&textBoxBombCount);
         textBoxCountX = TextBox(Text("48", font));
         textBoxVector.push_back(&textBoxCountX);
