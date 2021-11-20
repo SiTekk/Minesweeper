@@ -10,8 +10,6 @@ using namespace sf;
 namespace minesweeper
 {
     RenderWindow window;
-    MenuView menuView;
-    FieldView fieldView;
     IView* currentView;
 
     /// <summary>
@@ -31,7 +29,7 @@ namespace minesweeper
         window.create(VideoMode(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height), "Minesweeper Collection", Style::Fullscreen);
         window.setVerticalSyncEnabled(true);
 
-        currentView = &menuView;
+        currentView = new MenuView();
 
         Vector2i oldMousePos;
 
@@ -53,17 +51,17 @@ namespace minesweeper
         {
             HandleEvents();
 
-            if (Mouse::isButtonPressed(Mouse::Middle))
+            if (Mouse::isButtonPressed(Mouse::Middle) && currentView->viewId == ViewId::GAME_VIEW)
             {
                 //Move the field when the middle button is pressed
                 Vector2i currentMousePosition = Mouse::getPosition();
-                if (fieldView.mouseCounter)
+                if (((FieldView*)currentView)->mouseCounter)
                 {
-                    fieldView.renderTextureSprite.move(currentMousePosition.x - oldMousePos.x, currentMousePosition.y - oldMousePos.y);
+                    ((FieldView*)currentView)->renderTextureSprite.move(currentMousePosition.x - oldMousePos.x, currentMousePosition.y - oldMousePos.y);
                 }
                 else
                 {
-                    fieldView.mouseCounter = true;
+                    ((FieldView*)currentView)->mouseCounter = true;
                 }
                 oldMousePos = currentMousePosition;
 
@@ -100,6 +98,8 @@ namespace minesweeper
 
             window.display();
         }
+
+        delete currentView;
         return 0;
     }
 
@@ -166,12 +166,15 @@ namespace minesweeper
             return true;
 
         case ViewId::MENU_VIEW:
-            currentView = &menuView;
+            delete currentView;
+            currentView = new MenuView();
             break;
 
         case ViewId::GAME_VIEW:
-            fieldView.InitializeFieldView(menuView.bombs, menuView.x, menuView.y);
-            currentView = &fieldView;
+            //fieldView.InitializeFieldView(menuView.bombs, menuView.x, menuView.y);
+            IView *temp= new FieldView(((MenuView*)currentView)->bombs, ((MenuView*)currentView)->x, ((MenuView*)currentView)->y, window.getSize());
+            delete currentView;
+            currentView = temp;
             break;
         }
 
