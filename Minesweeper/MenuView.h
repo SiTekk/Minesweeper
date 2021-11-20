@@ -14,7 +14,7 @@ namespace minesweeper
     {
     public:
         MenuView();
-        virtual void DrawView(sf::RenderWindow& renderWindow);
+        virtual void DrawView(sf::RenderTarget& renderTarget);
         virtual void InitializeView(sf::Vector2f displaySize);
         virtual ViewId MouseButtonPressedEvent(sf::Event sfEvent, sf::Vector2i mousePosition);
         virtual void MouseButtonReleasedEvent(sf::Event sfEvent);

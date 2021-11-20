@@ -136,21 +136,21 @@ namespace minesweeper
         return ViewId::GAME_VIEW;
     }
 
-    void MenuView::DrawView(RenderWindow& renderWindow)
+    void MenuView::DrawView(sf::RenderTarget& renderTarget)
     {
-        renderWindow.draw(textMenuHeader);
+        renderTarget.draw(textMenuHeader);
         for (Button* button : buttonVector)
         {
-            renderWindow.draw(button->rectangleShape);
-            renderWindow.draw(button->text);
+            renderTarget.draw(button->rectangleShape);
+            renderTarget.draw(button->text);
         }
         for (TextBox* textBox : textBoxVector)
         {
-            renderWindow.draw(textBox->rectangleShape);
-            renderWindow.draw(textBox->text);
+            renderTarget.draw(textBox->rectangleShape);
+            renderTarget.draw(textBox->text);
         }
-        renderWindow.draw(textBombCount);
-        renderWindow.draw(textCountX);
-        renderWindow.draw(textCountY);
+        renderTarget.draw(textBombCount);
+        renderTarget.draw(textCountX);
+        renderTarget.draw(textCountY);
     }
 }
