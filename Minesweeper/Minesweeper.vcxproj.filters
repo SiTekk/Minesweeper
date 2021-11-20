@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Headerdateien\Control">
+      <UniqueIdentifier>{a22cc47c-5035-43e2-a0c8-a30529b13987}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\View">
+      <UniqueIdentifier>{71a6b5ad-ea84-497d-8b20-5cfb4cc5771a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Control">
+      <UniqueIdentifier>{3d661bc3-9303-4bab-bc54-33b28f6ca750}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\View">
+      <UniqueIdentifier>{9cd127b8-7862-42b8-b595-666321ede74a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -21,43 +33,43 @@
     <ClCompile Include="MinesweeperField.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="MenuView.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="FieldView.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="Button.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>Quelldateien\Control</Filter>
     </ClCompile>
     <ClCompile Include="TextBox.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>Quelldateien\Control</Filter>
     </ClCompile>
     <ClCompile Include="WidgetBase.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>Quelldateien\Control</Filter>
+    </ClCompile>
+    <ClCompile Include="FieldView.cpp">
+      <Filter>Quelldateien\View</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuView.cpp">
+      <Filter>Quelldateien\View</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MinesweeperField.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="MenuView.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="FieldView.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="IView.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="WidgetBase.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>Headerdateien</Filter>
+      <Filter>Headerdateien\Control</Filter>
     </ClInclude>
     <ClInclude Include="TextBox.h">
-      <Filter>Headerdateien</Filter>
+      <Filter>Headerdateien\Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Headerdateien\Control</Filter>
+    </ClInclude>
+    <ClInclude Include="FieldView.h">
+      <Filter>Headerdateien\View</Filter>
+    </ClInclude>
+    <ClInclude Include="IView.h">
+      <Filter>Headerdateien\View</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuView.h">
+      <Filter>Headerdateien\View</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
