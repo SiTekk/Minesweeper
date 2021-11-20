@@ -8,7 +8,7 @@
 #include "Button.h"
 #include "IView.h"
 #include "MinesweeperField.h"
-#include "MenuView.h"
+//#include "MenuView.h"
 #include "TextBox.h"
 
 using namespace sf;
@@ -20,11 +20,11 @@ namespace minesweeper
     {
     public:
 
-        //FieldView(int bombCount, int countX, int countY, Vector2f displaySize);
+        FieldView(int bombCount, int countX, int countY, Vector2u displaySize);
         FieldView();
         void InitializeFieldView(int bombCount, int countX, int countY);
         virtual void InitializeView(Vector2f displaySize);
-        virtual void DrawView(RenderWindow& renderWindow);
+        virtual void DrawView(RenderTarget& renderTarget);
         virtual ViewId MouseButtonPressedEvent(Event sfEvent, Vector2i mousePosition);
         virtual void MouseButtonReleasedEvent(sf::Event sfEvent);
         virtual void MouseHoverEvent(sf::Vector2i mousePosition);
@@ -68,10 +68,10 @@ namespace minesweeper
         void fieldLeftClicked(Vector2i mousePosition);
         void fieldRightClicked(Vector2i mousePosition);
         void revealField();
-        void revealSurroundingFields(long y, long x);
-        void setClickedFieldTexture(long y, long x);
+        void revealSurroundingFields(const uint64_t y, const uint64_t x);
+        void setClickedFieldTexture(const uint64_t y, const uint64_t x);
         void setFlag(MinesweeperField& field);
-        void setSurroundingFlags(long y, long x);
+        void setSurroundingFlags(const uint64_t y, const uint64_t x);
         virtual void initializeComponents();
 
         static ViewId buttonReloadClick(void* ptr); // ptr has to be a pointer to the Object itself

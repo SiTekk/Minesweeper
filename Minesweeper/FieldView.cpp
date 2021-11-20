@@ -2,7 +2,17 @@
 
 namespace minesweeper
 {
-    //FieldView::FieldView(int bombCount, int countX, int countY, Vector2f displaySize);
+    FieldView::FieldView(int bombCount, int countX, int countY, Vector2u displaySize)
+    {
+        viewId = ViewId::GAME_VIEW;
+        mouseCounter = false;
+        initializeComponents();
+
+        Vector2u size = textureFieldCovered.getSize();
+        renderTextureGameField.create(size.x * countX, size.y * countY);
+        InitializeFieldView(bombCount, countX, countY);
+    }
+
     FieldView::FieldView()
     {
         viewId = ViewId::GAME_VIEW;
@@ -53,19 +63,18 @@ namespace minesweeper
 
     ViewId FieldView::buttonReloadClick(void* ptr)
     {
-        return ViewId();
+        FieldView* fieldView = (FieldView*)ptr;
+        fieldView->InitializeFieldView(fieldView->bombsCount, fieldView->countX, fieldView->countY);
+        return ViewId::GAME_VIEW;
     }
 
     ViewId FieldView::buttonMenuClick(void* ptr)
     {
-        return ViewId();
+        return ViewId::EXIT;
     }
 
     void FieldView::InitializeFieldView(int bombCount, int countX, int countY)
     {
-        Vector2u size = textureFieldCovered.getSize();
-        renderTextureGameField.create(size.x * countX, size.y * countY);
-
         this->bombsCount = bombCount;  //Stores the Value of the Bombs, does not get changed
         this->bombCounter = bombCount; //Displays the Bombs on the top left corner of the field view
         this->countX = countX;
@@ -134,7 +143,7 @@ namespace minesweeper
         }
     }
 
-    void FieldView::setClickedFieldTexture(long y, long x)
+    void FieldView::setClickedFieldTexture(const uint64_t y, const uint64_t x)
     {
         MinesweeperField& field = bombField[y][x];
 
@@ -187,11 +196,11 @@ namespace minesweeper
             gameOver = -1;
     }
 
-    void FieldView::revealSurroundingFields(long y, long x)
+    void FieldView::revealSurroundingFields(const uint64_t y, const uint64_t x)
     {
-        if ((y - 1) >= 0)
+        if (y > 0)
         {
-            if ((x - 1) >= 0)
+            if (x > 0)
             {
                 if (!bombField[y - 1][x - 1].clicked && !bombField[y - 1][x - 1].isFlag)
                     setClickedFieldTexture(y - 1, x - 1);
@@ -205,7 +214,7 @@ namespace minesweeper
                     setClickedFieldTexture(y - 1, x + 1);
             }
         }
-        if ((x - 1) >= 0)
+        if (x > 0)
         {
             if (!bombField[y][x - 1].clicked && !bombField[y][x - 1].isFlag)
                 setClickedFieldTexture(y, x - 1);
@@ -217,7 +226,7 @@ namespace minesweeper
         }
         if (y + 1 < bombField.size())
         {
-            if ((x - 1) >= 0)
+            if (x > 0)
             {
                 if (!bombField[y + 1][x - 1].clicked && !bombField[y + 1][x - 1].isFlag)
                     setClickedFieldTexture(y + 1, x - 1);
@@ -232,11 +241,11 @@ namespace minesweeper
         }
     }
 
-    void FieldView::setSurroundingFlags(long y, long x)
+    void FieldView::setSurroundingFlags(const uint64_t y, const uint64_t x)
     {
-        if ((y - 1) >= 0)
+        if (y > 0)
         {
-            if ((x - 1) >= 0)
+            if (x > 0)
             {
                 if (!bombField[y - 1][x - 1].clicked && !bombField[y - 1][x - 1].isFlag)
                     setFlag(bombField[y - 1][x - 1]);
@@ -250,7 +259,7 @@ namespace minesweeper
                     setFlag(bombField[y - 1][x + 1]);
             }
         }
-        if ((x - 1) >= 0)
+        if (x > 0)
         {
             if (!bombField[y][x - 1].clicked && !bombField[y][x - 1].isFlag)
                 setFlag(bombField[y][x - 1]);
@@ -262,7 +271,7 @@ namespace minesweeper
         }
         if (y + 1 < bombField.size())
         {
-            if ((x - 1) >= 0)
+            if (x > 0)
             {
                 if (!bombField[y + 1][x - 1].clicked && !bombField[y + 1][x - 1].isFlag)
                     setFlag(bombField[y + 1][x - 1]);
@@ -417,10 +426,10 @@ namespace minesweeper
         menuBarSprite.setTexture(renderTextureMenuBar.getTexture());
     }
 
-    void FieldView::DrawView(RenderWindow& renderWindow)
+    void FieldView::DrawView(RenderTarget& renderTarget)
     {
-        renderWindow.draw(this->renderTextureSprite);
-        renderWindow.draw(this->menuBarSprite);
+        renderTarget.draw(this->renderTextureSprite);
+        renderTarget.draw(this->menuBarSprite);
     }
 
     ViewId FieldView::MouseButtonPressedEvent(Event sfEvent, Vector2i mousePosition)
