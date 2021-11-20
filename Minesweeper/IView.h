@@ -22,7 +22,7 @@ namespace minesweeper
         /// 
         /// </summary>
         /// <param name="renderWindow"></param>
-        virtual void DrawView(sf::RenderWindow& renderWindow) = 0;
+        virtual void DrawView(sf::RenderTarget& renderTarget) = 0;
 
         /// <summary>
         /// 
