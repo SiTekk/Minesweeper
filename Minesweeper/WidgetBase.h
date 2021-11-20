@@ -9,8 +9,7 @@ namespace minesweeper
     {
     public:
         ~WidgetBase() {};
-        virtual void DrawWidget(sf::RenderWindow& renderWindow);
-        virtual void DrawWidget(sf::RenderTexture& renderTexture);
+        virtual void DrawWidget(sf::RenderTarget& renderTarget);
         virtual bool IsMouseOver(sf::Vector2i mousePosition);
         virtual void SetPosition(float x, float y);
 

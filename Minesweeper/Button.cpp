@@ -50,29 +50,16 @@ namespace minesweeper
         }
     }
 
-    void Button::DrawWidget(sf::RenderWindow& renderWindow)
+    void Button::DrawWidget(sf::RenderTarget& renderTarget)
     {
         if (sprite)
         {
-            renderWindow.draw(rectangleShape);
-            renderWindow.draw(*sprite);
+            renderTarget.draw(rectangleShape);
+            renderTarget.draw(*sprite);
         }
         else
         {
-            WidgetBase::DrawWidget(renderWindow);
-        }
-    }
-
-    void Button::DrawWidget(sf::RenderTexture& renderTexture)
-    {
-        if (sprite)
-        {
-            renderTexture.draw(rectangleShape);
-            renderTexture.draw(*sprite);
-        }
-        else
-        {
-            WidgetBase::DrawWidget(renderTexture);
+            WidgetBase::DrawWidget(renderTarget);
         }
     }
 

@@ -2,16 +2,10 @@
 
 namespace minesweeper
 {
-    void WidgetBase::DrawWidget(sf::RenderWindow& renderWindow)
+    void WidgetBase::DrawWidget(sf::RenderTarget& renderTarget)
     {
-        renderWindow.draw(rectangleShape);
-        renderWindow.draw(text);
-    }
-
-    void WidgetBase::DrawWidget(sf::RenderTexture& renderTexture)
-    {
-        renderTexture.draw(rectangleShape);
-        renderTexture.draw(text);
+        renderTarget.draw(rectangleShape);
+        renderTarget.draw(text);
     }
 
     bool WidgetBase::IsMouseOver(sf::Vector2i mousePosition)

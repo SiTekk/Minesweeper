@@ -14,8 +14,7 @@ namespace minesweeper
         Button(sf::Texture& texture, ViewId(*clickEventFunctionPointer)(void*));
         ~Button();
 
-        virtual void DrawWidget(sf::RenderWindow& renderWindow);
-        virtual void DrawWidget(sf::RenderTexture& renderTexture);
+        virtual void DrawWidget(sf::RenderTarget& renderTarget);
         virtual void SetPosition(float x, float y);
 
         sf::Sprite* sprite;
