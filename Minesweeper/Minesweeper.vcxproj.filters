@@ -48,9 +48,6 @@
     <ClCompile Include="MenuView.cpp">
       <Filter>Quelldateien\View</Filter>
     </ClCompile>
-    <ClCompile Include="Settings.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MinesweeperField.h">
