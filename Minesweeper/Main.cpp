@@ -63,6 +63,16 @@ namespace minesweeper
                 if (((FieldView*)currentView)->mouseCounter)
                 {
                     ((FieldView*)currentView)->renderTextureSprite.move((float)(currentMousePosition.x - oldMousePos.x), (float)(currentMousePosition.y - oldMousePos.y));
+
+                    if (((FieldView*)currentView)->renderTextureSprite.getPosition().x > 0.0f)
+                        ((FieldView*)currentView)->renderTextureSprite.setPosition(0.0f, ((FieldView*)currentView)->renderTextureSprite.getPosition().y);
+
+                    if (((FieldView*)currentView)->renderTextureSprite.getPosition().y > 40.0f)
+                        ((FieldView*)currentView)->renderTextureSprite.setPosition(((FieldView*)currentView)->renderTextureSprite.getPosition().x, 40.0f);
+
+                    /*if (((FieldView*)currentView)->renderTextureSprite.getPosition().y + ((FieldView*)currentView)->renderTextureSprite.getGlobalBounds().height < Settings::ScreenSize.y)
+                        ((FieldView*)currentView)->renderTextureSprite.setPosition(((FieldView*)currentView)->renderTextureSprite.getPosition().x, ((FieldView*)currentView)->renderTextureSprite.getGlobalBounds().height - Settings::ScreenSize.y + 40.0f);*/
+
                 }
                 else
                 {
