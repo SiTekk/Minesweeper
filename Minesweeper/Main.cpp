@@ -3,6 +3,7 @@
 #include "FieldView.h"
 #include "IView.h"
 #include "Button.h"
+#include "Settings.h"
 
 using namespace std;
 using namespace sf;
@@ -29,6 +30,10 @@ namespace minesweeper
         window.create(VideoMode(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height), "Minesweeper Collection", Style::Fullscreen);
         window.setVerticalSyncEnabled(true);
 
+        Settings::DeserializeSettings();
+
+        Settings::ScreenSize = sf::Vector2u(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height);
+
         currentView = new MenuView();
 
         Vector2i oldMousePos;
@@ -42,8 +47,8 @@ namespace minesweeper
         Text textFps = Text("0", font);
         textFps.setFillColor(Color::Yellow);
         sf::VideoMode screenSize = sf::VideoMode::getDesktopMode();
-        Vector2i textFpsSize = Vector2i(textFps.getLocalBounds().width, textFps.getLocalBounds().height);
-        textFps.setPosition(screenSize.width - textFpsSize.x * 4 - 5, screenSize.height - textFpsSize.y - 20);
+        Vector2i textFpsSize = Vector2i((int)textFps.getLocalBounds().width, (int)textFps.getLocalBounds().height);
+        textFps.setPosition((float)(screenSize.width - textFpsSize.x * 4 - 5), (float)(screenSize.height - textFpsSize.y - 20));
         Int64 lastTime = 0;
 
         //Game Loop
@@ -57,7 +62,7 @@ namespace minesweeper
                 Vector2i currentMousePosition = Mouse::getPosition();
                 if (((FieldView*)currentView)->mouseCounter)
                 {
-                    ((FieldView*)currentView)->renderTextureSprite.move(currentMousePosition.x - oldMousePos.x, currentMousePosition.y - oldMousePos.y);
+                    ((FieldView*)currentView)->renderTextureSprite.move((float)(currentMousePosition.x - oldMousePos.x), (float)(currentMousePosition.y - oldMousePos.y));
                 }
                 else
                 {
@@ -119,7 +124,7 @@ namespace minesweeper
 
             case Event::Resized:
             {
-                FloatRect visibleArea(0, 0, sfEvent.size.width, sfEvent.size.height);
+                FloatRect visibleArea(0, 0, (float)sfEvent.size.width, (float)sfEvent.size.height);
                 window.setView(View(visibleArea));
                 //menuBar.setSize(Vector2f(event.size.width, 40));
                 break;
