@@ -8,7 +8,7 @@
 #include "Button.h"
 #include "IView.h"
 #include "MinesweeperField.h"
-//#include "MenuView.h"
+#include "Settings.h"
 #include "TextBox.h"
 
 using namespace sf;

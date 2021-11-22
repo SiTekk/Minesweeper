@@ -368,7 +368,7 @@ namespace minesweeper
 
     void FieldView::InitializeView(Vector2f displaySize)
     {
-        renderTextureMenuBar.create(displaySize.x, 40);
+        renderTextureMenuBar.create((unsigned int)displaySize.x, 40);
         menuBar.setSize(Vector2f(displaySize.x, 40));
 
         if (drawField)
@@ -491,13 +491,13 @@ namespace minesweeper
     {
         if (sfEvent.mouseWheelScroll.delta > 0)
         {
-            for (int i = 0; i < sfEvent.mouseWheelScroll.delta; i++)
-                renderTextureSprite.scale(1.1, 1.1);
+            for (int i = 0; i < sfEvent.mouseWheelScroll.delta && renderTextureSprite.getGlobalBounds().width / countX < textureFieldCovered.getSize().x * 8; i++)
+                renderTextureSprite.scale(1.05f, 1.05f);
         }
         else
         {
-            for (int i = sfEvent.mouseWheelScroll.delta; i < 0; i++)
-                renderTextureSprite.scale(1 / 1.1, 1 / 1.1);
+            for (int i = sfEvent.mouseWheelScroll.delta; i < 0 && renderTextureSprite.getGlobalBounds().width > Settings::ScreenSize.x ; i++)
+                renderTextureSprite.scale(1.0f / 1.05f, 1.0f / 1.05f);
         }
     }
 
